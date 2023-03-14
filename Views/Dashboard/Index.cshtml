@@ -1,0 +1,142 @@
+﻿@model HireMe.Models.UserModel
+
+<html>
+<head>
+	<link rel="stylesheet" href="~/css/DashboardStyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="lmenu">
+        <div class="avatar">
+            <img src="~/images/avatar.svg" />
+        </div>
+        <div class="fullname">
+            <p>
+                @ViewBag.MyString
+            </p>
+        </div>
+        <div class="bttns">
+        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Wyszukaj
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="@Url.Action("RouteSearchCandidateAd", "Dashboard")">Pracownika</a>
+    <a class="dropdown-item" href="@Url.Action("RouteSearchCompanyAd", "Dashboard")">Pracodawcę</a>
+  </div>
+</div>
+<div class="spacer"></div>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dodaj ogłoszenie
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="@Url.Action("RouteCompanyAd", "Dashboard")">Jako pracodawca</a>
+    <a class="dropdown-item" href="@Url.Action("RouteCandidateAd", "Dashboard")#">Jako kandydat na pracownika</a>
+  </div>
+</div>
+</div>
+@if(TempData["AlertMessage1"] != null)
+                    {
+                     <div class="smallSpacer"></div>
+                     <div class="alert alert-warning">
+                        @TempData["AlertMessage1"]
+                     </div> 
+                    }
+    
+    <button class="subbtn" id ="subbtn1" onclick="location.href='@Url.Action("GetPDF", "Dashboard")'">Download your meetings</button>
+    <button class="subbtn" onclick="location.href='@Url.Action("Logout", "Dashboard")'">Logout</button>
+</div>
+    <div class="pmenu">
+    <div class="title">
+    <p>Twoje spotkania</p>
+    </div>
+
+		<table class="fixed_header">
+    <thead>
+        <tr>
+            <th>Organizator</th>
+            <th>Guest</th>
+            <th>Informacja</th>
+            <th>Data</th>
+            <th>Miejsce</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in ViewData["meetings"] as List<MeetingModel>) {
+                        @if(item.OrganizerName == ViewBag.MyString)
+                        {
+                           <tr style="background-color: mistyrose">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrganizerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GuestName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MeetingInfo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MeetingPlace)
+                                </td>
+                                                @if(item.Status == "upcoming")
+                                                {
+                                                    <td style="color: green; border-color: black">
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="color: red; border-color: black">
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>         
+                                                }
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="background-color: #f5a38e">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrganizerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GuestName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MeetingInfo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MeetingPlace)
+                                </td>
+                                                @if(item.Status == "upcoming")
+                                                {
+                                                    <td style="color: green; border-color: black">
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="color: red; border-color: black">
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>         
+                                                }
+                            </tr>
+                        }
+
+                    }
+    </tbody>
+    </table>
+    </div>		
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿@model HireMe.Models.SearchedItem
+<html>
+<head>
+	<link rel="stylesheet" href="~/css/AdStyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ProcessSearch">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Industry" class="control-label"></label>
+                <input asp-for="Industry" class="form-control" />
+                <span asp-validation-for="Industry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaryMin" class="control-label">Minimum Salary</label>
+                <input asp-for="SalaryMin" class="form-control" />
+                <span asp-validation-for="SalaryMin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaryMax" class="control-label">Maximum Salary</label>
+                <input asp-for="SalaryMax" class="form-control" />
+                <span asp-validation-for="SalaryMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Keywords" class="control-label">Skills you have</label>
+                <input asp-for="Keywords" class="form-control" />
+                <span asp-validation-for="Keywords" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class = "items">
+    <table class="fixed_header">
+    <thead>
+        <tr>
+            <th>Industry</th>
+            <th>Company</th>
+            <th>Title</th>
+            <th>Salary</th>
+            <th>Skills required</th>
+            <th>Set up an appointment</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in ViewData["offers"] as List<SearchingResult>) {
+                           <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Industry)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Salary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
+                                <td>
+                                    <button class="subbtn" onclick="location.href='@Url.Action("Index", "CreateMeeting", new {guest = item.OrganizerID })'")>Let's go!</button>
+                                </td>
+                               
+                            </tr>      
+                    }
+    </tbody>
+    </table>
+</div>
+</body>
+</html>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

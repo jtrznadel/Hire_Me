@@ -1,0 +1,57 @@
+﻿@model HireMe.Models.JobadModel
+<html>
+<head>
+	<link rel="stylesheet" href="~/css/AdStyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateAd">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Industry" class="control-label"></label>
+                <input asp-for="Industry" class="form-control" />
+                <span asp-validation-for="Industry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyName" class="control-label">Name of company</label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Title of offer</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaryMin" class="control-label">Minimum Salary</label>
+                <input asp-for="SalaryMin" class="form-control" />
+                <span asp-validation-for="SalaryMin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaryMax" class="control-label">Maximum salary</label>
+                <input asp-for="SalaryMax" class="form-control" />
+                <span asp-validation-for="SalaryMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">Skills required</label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

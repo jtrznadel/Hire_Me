@@ -1,0 +1,32 @@
+﻿@model HireMe.Models.MeetingModel
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMeeting">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MeetingInfo" class="control-label">Put some info about meeting</label>
+                <input asp-for="MeetingInfo" class="form-control" />
+                <span asp-validation-for="MeetingInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeetingDate" class="control-label">Suggest date</label>
+                <input asp-for="MeetingDate" class="form-control" />
+                <span asp-validation-for="MeetingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeetingPlace" class="control-label">Suggest place</label>
+                <input asp-for="MeetingPlace" class="form-control" />
+                <span asp-validation-for="MeetingPlace" class="text-danger"></span>
+            </div>     
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
